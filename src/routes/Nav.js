@@ -4,13 +4,14 @@ import { listPageReLoading, focusNav } from "../atom/Main";
 
 import mainImg from "../images/main.png";
 import NavList from "../atom/NavList";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 function Header() {
   const [page, setPage] = useState("1");
 
   const pageReLoading = useSetRecoilState(listPageReLoading);
   const [focusPath, setFocusPath] = useRecoilState(focusNav);
   const onClick = () => {
+    console.log(onClick);
     pageReLoading(true);
   };
 

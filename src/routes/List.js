@@ -9,7 +9,6 @@ const listNums = [...Array(10)].map((_, i) => i + 1);
 
 function List() {
   const { num, path } = useParams();
-
   const [loading, setLoading] = useState(true);
   const [movies, setMovies] = useState([]);
   const [reloading, setReloading] = useRecoilState(listPageReLoading);
@@ -34,7 +33,7 @@ function List() {
   }, [reloading]);
 
   return (
-    <dispatchEvent>
+    <div>
       {loading ? (
         <h2>loading</h2>
       ) : (
@@ -68,7 +67,7 @@ function List() {
               );
             })}
       </ul>
-    </dispatchEvent>
+    </div>
   );
 }
 export default List;
