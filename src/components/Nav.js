@@ -11,7 +11,6 @@ function Header() {
   const pageReLoading = useSetRecoilState(listPageReLoading);
   const [focusPath, setFocusPath] = useRecoilState(focusNav);
   const onClick = () => {
-    console.log(onClick);
     pageReLoading(true);
   };
 

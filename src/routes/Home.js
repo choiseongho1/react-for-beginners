@@ -1,42 +1,23 @@
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Movie from "../components/Movie";
-import navList from "../atom/NavList";
-
+import mainList from "../atom/MainList";
+import Ho from "../components/Ho";
 function Home() {
-  const [loading, setLoading] = useState(true);
-  const [movies, setMovies] = useState([]);
-  const getMovies = async () => {
-    const json = await (
-      await fetch(`https://yts.mx/api/v2/list_movies.json?sort_by=year`)
-    ).json();
-    setMovies(json.data.movies);
-    setLoading(false);
-    console.log(json);
-  };
-
-  useEffect(() => {
-    getMovies();
-  }, []);
   return (
     <div>
-      {loading ? (
-        <h2>loading</h2>
-      ) : (
-        <div>
-          {movies.map((movie) => (
-            <Movie
-              key={movie.id}
-              id={movie.id}
-              year={movie.year}
-              coverImg={movie.medium_cover_image}
-              title={movie.title}
-              summary={movie.summary}
-              genres={movie.genres}
+      {mainList.map((slide) => {
+        return (
+          <div>
+            <h3>
+              <Link to={`/page/${slide.path}/1`}>
+                <span>{slide.title}</span>
+              </Link>
+            </h3>
+            <Ho
+              API={`https://api.themoviedb.org/3/discover/movie?${slide.path}&api_key=56190e9d8107fb6fe38424b5de13c69c&language=ko`}
             />
-          ))}
-        </div>
-      )}
+          </div>
+        );
+      })}
     </div>
   );
 }

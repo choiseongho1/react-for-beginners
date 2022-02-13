@@ -13,6 +13,7 @@
 .header > nav {
   width: 600px;
   height: 100%;
+  margin : 0 auto;
 }
 .nav_items {
   width: 100%;

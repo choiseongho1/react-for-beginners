@@ -10,4 +10,5 @@ const focusNav = atom({
   default: "", // default value (aka initial value)
 });
 
-export { listPageReLoading, focusNav };
+const Imagepath = "http://image.tmdb.org/t/p/";
+export { listPageReLoading, focusNav, Imagepath };

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import Movie from "../components/Movie";
+import Movie from "./Movie";
 import { Link } from "react-router-dom";
 import { listPageReLoading, focusNav } from "../atom/Main";
 import { useRecoilState, useSetRecoilState } from "recoil";
@@ -13,14 +13,16 @@ function List() {
   const [movies, setMovies] = useState([]);
   const [reloading, setReloading] = useRecoilState(listPageReLoading);
   const focusPage = useSetRecoilState(focusNav);
-
+  console.log(path);
   const getMovies = async () => {
     const json = await (
       await fetch(
-        `https://yts.mx/api/v2/list_movies.json?page=${num}&${path}&sort_by=year`
+        // `https://yts.mx/api/v2/list_movies.json?page=${num}&${path}&sort_by=year`
+        `https://api.themoviedb.org/3/discover/movie?${path}&api_key=56190e9d8107fb6fe38424b5de13c69c&language=ko`
       )
     ).json();
-    setMovies(json.data.movies);
+    console.log(json.results);
+    setMovies(json.results);
     setLoading(false);
   };
   useEffect(() => {
@@ -43,30 +45,14 @@ function List() {
               key={movie.id}
               id={movie.id}
               year={movie.year}
-              coverImg={movie.medium_cover_image}
+              coverImg={movie.poster_path}
               title={movie.title}
-              summary={movie.summary}
-              genres={movie.genres}
+              summary={movie.overview}
+              genres={movie.genre_ids}
             />
           ))}
         </div>
       )}
-      <ul>
-        {loading
-          ? null
-          : listNums.map((listNum) => {
-              return (
-                <li>
-                  <Link
-                    to={`/page/${path}/${listNum}`}
-                    onClick={() => setReloading(true)}
-                  >
-                    {listNum}
-                  </Link>
-                </li>
-              );
-            })}
-      </ul>
     </div>
   );
 }
